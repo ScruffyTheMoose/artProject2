@@ -1,1 +1,3 @@
 Daniel Shiffman
+
+vector field with circle that follows mouse movement and gradients causing vectors to change direction based on distance.
