@@ -1,8 +1,8 @@
 // array for storing vectors
 locs = [];
 
-circleX = 10;
-circleY = 10;
+circleX = 150;
+circleY = 150;
 diameter = 65;
 
 function setup() {
@@ -64,8 +64,8 @@ function draw() {
 
         // color of the line is dependent on distance from circle
         // given as a ratio of max distance to current distance
-        let rat = (dist(locs[k].x, locs[k].y, circleX, circleY)) / maxDist();
-        let from = color(0, 0, 255);
+        let rat = 0.1 + (dist(locs[k].x, locs[k].y, circleX, circleY)) / maxDist();
+        let from = color(20, 0, 220);
         let to = color(255, 0, 0);
         let magnitude = lerpColor(from, to, rat);
         stroke(magnitude);
