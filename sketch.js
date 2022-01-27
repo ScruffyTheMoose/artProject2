@@ -1,34 +1,48 @@
-/**
- * The setup() method will set the dimensions for the canvas and initialize all dimension variables for rendering.
- */
+// array for storing vectors
+var locs = [];
+
 function setup() {
 
-    /**
-     * Setting window width and height to match to have universally square canvas.
-     * The form of the drawn cubes is dependent on the dimensions of the canvas so this is necessary.
-     */
-    WIDTH = windowWidth;
-    HEIGHT = windowHeight;
-    createCanvas(WIDTH, HEIGHT);
+    // drawing canvas to dimensions that match the size of the window
+    createCanvas(windowWidth, windowHeight);
 
-    // used to shift second cube down and left
-    // larger than true quarter so that there is a gap between objects
-    x_quart = WIDTH / 3.5;
-    y_quart = HEIGHT / 3.5;
+    // resolution of vector field, one vector for every 20 pixels
+    var res = 20;
+    var xCount = ceil(width / res) + 1;
+    var yCount = ceil(height / res) + 1;
 
-    // one-eight the canvas dimension which is used to plot corners of cubes
-    x_oct = WIDTH / 8;
-    y_oct = HEIGHT / 8;
+    // creating new vector objects and appending to locs array by row
+    // outer loop iterates through y-axis (rows)
+    // inner loop builds new vector every 20 pixels across x-axis
+    for (var i = 0; i < yCount; i++) {
+        for (var j = 0; j < xCount; j++) {
+            locs.push(new p5.Vector(res * j, res * i));
+        }
+    }
+
+    // removing fill and setting line stroke
+    noFill();
+    stroke(250, 80, 130);
 }
 
-/**
- * The draw() method will build the canvas and render all objects given within the code block.
- */
 function draw() {
 
-    // setting background color
+    // setting background color to turquiose ish
     background(0, 100, 100);
 
+    // iterating through each vector in locs
+    for (var k = 0; k < locs.length; k++) {
 
+        // needs additional commenting
+        var h = calcVec(locs[k].x - mouseX, locs[k].y - mouseY);
+        push();
+        translate(locs[k].x, locs[k].y);
+        rotate(h.heading());
+        line(0, 0, 0, -15);
+        pop();
+    }
+}
 
+function calcVec(x, y) {
+    return new p5.Vector(y - x, -x - y);
 }
