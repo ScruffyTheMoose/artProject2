@@ -1,8 +1,8 @@
 // array for storing vectors
 locs = [];
 
-circleX = 150;
-circleY = 150;
+circleX = 400;
+circleY = 400;
 diameter = 65;
 
 function setup() {
