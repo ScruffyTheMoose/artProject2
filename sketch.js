@@ -24,9 +24,14 @@ function setup() {
         }
     }
 
+    slider = createSlider(-15, 15, 0, 1);
+    slider.position(30, 30);
+    slider.style('width', '200px');
 }
 
 function draw() {
+
+    curl = slider.value();
 
     // setting background color to turquiose ish
     background(200);
@@ -81,7 +86,12 @@ function draw() {
          * function will just add n-radians. Keeping y2 as 0 makes the vector point directly
          * towards the mouse.
          */
-        line(0, 0, 15, 0);
+        if (curl >= 0) {
+            line(0, 0, 15 - curl, curl);
+        } else if (curl < 0) {
+            line(0, 0, 15 + curl, curl);
+        }
+
 
         // exit the instance
         pop();
