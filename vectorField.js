@@ -13,7 +13,7 @@ function setup() {
 
     // creating new vector objects and appending to locs array by row
     // outer loop iterates through y-axis (rows)
-    // inner loop builds new vector every 20 pixels across x-axis
+    // inner loop builds new vector every <res> pixels across x-axis
     for (let i = 0; i <= yCount; i++) {
         for (let j = 0; j <= xCount; j++) {
             locs.push(new p5.Vector(res * j, res * i));
