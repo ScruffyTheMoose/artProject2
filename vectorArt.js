@@ -25,14 +25,18 @@ function draw() {
     background(200);
     
     for ( k = 0; k < locs.length; k++ ) {
+
+        // fill color of outer circle is scaled based on distance from the mouse
         let rat = 0.2 + (dist(locs[k].x, locs[k].y, mouseX, mouseY)) / maxDist();
-        let from = color(20, 0, 220);
-        let to = color(255, 0, 0);
+        let from = color(0);
+        let to = color(255);
         let magnitude = lerpColor(from, to, rat);
         fill(magnitude);
         circle(locs[k].x, locs[k].y, 50);
 
-        fill(100);
+        // radius of inner circle is based on distance from mouse
+        // Closer means smaller
+        fill(255);
         circle(locs[k].x, locs[k].y, 50 * (dist(locs[k].x, locs[k].y, mouseX, mouseY))/ maxDist());
     }
 
