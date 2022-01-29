@@ -1,25 +1,21 @@
 // array for storing vectors
 locs = [];
 
-circleX = 400;
-circleY = 400;
-diameter = 65;
-
 function setup() {
 
     // drawing canvas to dimensions that match the size of the window
     createCanvas(windowWidth, windowHeight);
 
-    // resolution of vector field, one vector for every 20 pixels
+    // resolution of vector field, one vector for every 50 pixels
     res = 50;
-    xCount = ceil(width / res) + 1;
-    yCount = ceil(height / res) + 1;
+    xCount = ceil(width / res);
+    yCount = ceil(height / res);
 
     // creating new vector objects and appending to locs array by row
     // outer loop iterates through y-axis (rows)
     // inner loop builds new vector every 20 pixels across x-axis
-    for (let i = 0; i < yCount; i++) {
-        for (let j = 0; j < xCount; j++) {
+    for (let i = 0; i <= yCount; i++) {
+        for (let j = 0; j <= xCount; j++) {
             locs.push(new p5.Vector(res * j, res * i));
         }
     }
@@ -55,7 +51,7 @@ function draw() {
          * so we must create a new position vector that points towards to true
          * location of the mouse.
          */
-        let h = new p5.Vector(-locs[k].x + circleX, -locs[k].y + circleY);
+        let h = new p5.Vector(-locs[k].x + mouseX, -locs[k].y + mouseY);
 
 
         // creates an instance specific to the new vector h
@@ -69,7 +65,7 @@ function draw() {
 
         // color of the line is dependent on distance from circle
         // given as a ratio of max distance to current distance
-        let rat = 0.1 + (dist(locs[k].x, locs[k].y, circleX, circleY)) / maxDist();
+        let rat = 0.2 + (dist(locs[k].x, locs[k].y, mouseX, mouseY)) / maxDist();
         let from = color(20, 0, 220);
         let to = color(255, 0, 0);
         let magnitude = lerpColor(from, to, rat);
@@ -87,27 +83,15 @@ function draw() {
          * towards the mouse.
          */
         if (curl >= 0) {
-            line(0, 0, 15 - curl, curl);
+            line(0, 0, 20 - curl, curl);
         } else if (curl < 0) {
-            line(0, 0, 15 + curl, curl);
+            line(0, 0, 20 + curl, curl);
         }
 
 
         // exit the instance
         pop();
     }
-
-    // removing stroke for ellipse
-    noStroke();
-    fill(50);
-
-    if (dist(circleX, circleY, mouseX, mouseY) < diameter && mouseIsPressed) {
-
-        circleX = mouseX;
-        circleY = mouseY;
-    }
-
-    ellipse(circleX, circleY, diameter, diameter);
 }
 
 /**

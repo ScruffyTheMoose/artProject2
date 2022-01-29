@@ -1,10 +1,40 @@
+locs = [];
+
+function setup() {
+
+    // drawing the canvas
+    createCanvas(windowWidth, windowHeight);
+
+    // resolution of polygons on the canvas
+    res = 50;
+    countX = ceil(width / res);
+    countY = ceil(height / res);
+
+    // building new responsive circles iteratively and storing the objects in locs
+    // Circle objs given (x, y) coords normally and have radius set based on ratio of circles to window width
+    for (let i = 0; i <= countY; i++) {
+        for (let j = 0; j <= countX; j++) {
+            locs.push(new Circle(res * j, res * i, width / res));
+        }
+    }
+}
+
+function draw() {
+
+    // setting background color
+    background(200);
+
+
+}
+
+
 class Circle {
     constructor(x, y, radius) {
         this.x = x;
         this.y = y;
         this.radius = radius;
-        this.outerCircle = circle(this.x, this.y, this.radius);
-        this.innerCircle = circle(this.x, thisy, this.radius / 2);
+        this.outerCircle = circle(x, y, radius);
+        this.innerCircle = circle(x, y, radius / 2);
     }
 
     /**
