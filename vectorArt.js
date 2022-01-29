@@ -14,7 +14,7 @@ function setup() {
     // Circle objs given (x, y) coords normally and have radius set based on ratio of circles to window width
     for (let i = 0; i <= countY; i++) {
         for (let j = 0; j <= countX; j++) {
-            locs.push(new Circle(res * j, res * i, width / res));
+            locs.push(new p5.Vector(res * j, res * i));
         }
     }
 }
@@ -23,51 +23,26 @@ function draw() {
 
     // setting background color
     background(200);
+    
+    for ( k = 0; k < locs.length; k++ ) {
+        let rat = 0.2 + (dist(locs[k].x, locs[k].y, mouseX, mouseY)) / maxDist();
+        let from = color(20, 0, 220);
+        let to = color(255, 0, 0);
+        let magnitude = lerpColor(from, to, rat);
+        fill(magnitude);
+        circle(locs[k].x, locs[k].y, 50);
 
+        fill(100);
+        circle(locs[k].x, locs[k].y, 50 * (dist(locs[k].x, locs[k].y, mouseX, mouseY))/ maxDist());
+    }
 
 }
 
-
-class Circle {
-    constructor(x, y, radius) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
-        this.outerCircle = circle(x, y, radius);
-        this.innerCircle = circle(x, y, radius / 2);
-    }
-
-    /**
-     * Change the x-axis value for the location of the outer circle and inner circle
-     * @param {x-value} x 
-     */
-    changeX(x) {
-        this.outerCircle.x = x;
-        this.innerCircle.x = x;
-    }
-
-    /**
-     * Change the y-axis value for the location of the outer and inner circle
-     * @param {y-value} y 
-     */
-    changeY(y) {
-        this.outerCircle.y = y;
-        this.innerCircle.y = y;
-    }
-
-    /**
-     * Change the radius of the outer circle
-     * @param {radius} radius 
-     */
-    changeOuterRadius(radius) {
-        this.outerCircle.radius = radius;
-    }
-
-    /**
-     * Change the radius of the inner circle
-     * @param {radius} radius 
-     */
-    changeInnerRadius(radius) {
-        this.innerCircle.radius = radius;
-    }
+/**
+ * returns the max diagonal distance of the frame
+ */
+ function maxDist() {
+    widthSq = width * width;
+    heightSq = height * height;
+    return Math.sqrt(widthSq + heightSq);
 }
