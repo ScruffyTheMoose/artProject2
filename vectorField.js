@@ -25,12 +25,19 @@ function setup() {
     slider.style('width', '200px');
 }
 
+baseNoiseX = 0;
+baseNoiseY = 250;
+
 function draw() {
 
     curl = slider.value();
 
     // setting background color to turquiose ish
     background(200);
+
+    // building random point from noise for vectors to track
+    noiseX = noise(baseNoiseX) * windowWidth;
+    noiseY = noise(baseNoiseY) * windowHeight;
 
     // removing fill and setting line stroke
     noFill();
@@ -51,7 +58,7 @@ function draw() {
          * so we must create a new position vector that points towards to true
          * location of the mouse.
          */
-        let h = new p5.Vector(-locs[k].x + mouseX, -locs[k].y + mouseY);
+        let h = new p5.Vector(-locs[k].x + noiseX, -locs[k].y + noiseY);
 
 
         // creates an instance specific to the new vector h
@@ -65,7 +72,7 @@ function draw() {
 
         // color of the line is dependent on distance from circle
         // given as a ratio of max distance to current distance
-        let rat = 0.2 + (dist(locs[k].x, locs[k].y, mouseX, mouseY)) / maxDist();
+        let rat = 0.2 + (dist(locs[k].x, locs[k].y, noiseX, noiseY)) / maxDist();
         let from = color(20, 0, 220);
         let to = color(255, 0, 0);
         let magnitude = lerpColor(from, to, rat);
@@ -91,6 +98,10 @@ function draw() {
 
         // exit the instance
         pop();
+
+        // incrementing noise values at pace that causes human-like movement
+        baseNoiseX += 0.00003;
+        baseNoiseY += 0.00003;
     }
 }
 

@@ -21,33 +21,35 @@ function setup() {
     }
 }
 
+baseNoiseX = 0;
+baseNoiseY = 250;
+
 function draw() {
 
     // setting background color
     background(7, 148, 197);
+
+    // setting noise values
+    noiseX = noise(baseNoiseX) * windowWidth;
+    noiseY = noise(baseNoiseY) * windowHeight;
 
     // iterating through the list of position vectors and using the coordinates to build outer/inner circle pairs
     for (k = 0; k < locs.length; k++) {
 
         // fill color of outer circle is scaled based on distance from the mouse
         // rat = [dist from mouse to center of circle] / [maximum possible distance on canvas]
-        let rat = 0.2 + (dist(locs[k].x, locs[k].y, mouseX, mouseY)) / maxDist();
+        let rat = 0.2 + (dist(locs[k].x, locs[k].y, noiseX, noiseY)) / maxDist();
 
         // the closer the ratio is to 1, the more white the shading will be
         let from = color(200, 62, 119);
         let to = color(53, 176, 201);
         let magnitude = lerpColor(from, to, rat);
         fill(magnitude);
-
-        // // building outer circle at coords of position vector and radius of res
-        // circle(locs[k].x, locs[k].y, res);
-
-        // // radius of inner circle is based on distance from mouse
-        // // Closer means smaller
-        // // inner circle always filled with white
-        // fill(110, 55, 113);
-        circle(locs[k].x, locs[k].y, res * (dist(locs[k].x, locs[k].y, mouseX, mouseY)) / maxDist());
+        circle(locs[k].x, locs[k].y, res * (dist(locs[k].x, locs[k].y, noiseX, noiseY)) / maxDist());
     }
+
+    baseNoiseX += 0.03;
+    baseNoiseY += 0.03;
 }
 
 /**
