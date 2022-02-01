@@ -1,6 +1,9 @@
 // array for storing vectors
 locs = [];
 
+// array for storing vectors to the trail of random trajectory
+track = [];
+
 function setup() {
 
     // drawing canvas to dimensions that match the size of the window
@@ -14,9 +17,10 @@ function setup() {
     // creating new vector objects and appending to locs array by row
     // outer loop iterates through y-axis (rows)
     // inner loop builds new vector every <res> pixels across x-axis
+    // x and y are randomly deviated from the grid [0, 10] pixels
     for (let i = 0; i <= yCount; i++) {
         for (let j = 0; j <= xCount; j++) {
-            locs.push(new p5.Vector(res * j, res * i));
+            locs.push(new p5.Vector(res * j + Math.random() * 10, res * i + Math.random() * 10));
         }
     }
 
@@ -38,6 +42,30 @@ function draw() {
     // building random point from noise for vectors to track
     noiseX = noise(baseNoiseX) * windowWidth;
     noiseY = noise(baseNoiseY) * windowHeight;
+
+    // add current (x, y) to track array
+    track.push(new p5.Vector(noiseX, noiseY));
+
+    // truncate excess point from track array
+    if (track.length > 500) {
+        track.shift();
+    }
+
+    // dropping dots at each point visited by the object
+    beginShape();
+    noFill();
+    for (let p = 0; p < track.length; p++) {
+        // color fades as points gets further from object
+        // NEEDS WORK
+        stroke(255 * (p + 1 / track.length), 0, 0);
+        vertex(track[p].x, track[p].y);
+    }
+    endShape();
+
+    // building object to track
+    fill(100);
+    noStroke();
+    circle(noiseX, noiseY, 20);
 
     // removing fill and setting line stroke
     noFill();
@@ -72,9 +100,9 @@ function draw() {
 
         // color of the line is dependent on distance from circle
         // given as a ratio of max distance to current distance
-        let rat = 0.2 + (dist(locs[k].x, locs[k].y, noiseX, noiseY)) / maxDist();
+        let rat = 0.1 + (dist(locs[k].x, locs[k].y, noiseX, noiseY)) / maxDist();
         let from = color(20, 0, 220);
-        let to = color(255, 0, 0);
+        let to = color(200);
         let magnitude = lerpColor(from, to, rat);
         stroke(magnitude);
         strokeWeight(3);
@@ -90,9 +118,9 @@ function draw() {
          * towards the mouse.
          */
         if (curl >= 0) {
-            line(0, 0, 20 - curl, curl);
+            line(0, 0, ((res) * rat) - curl, curl);
         } else if (curl < 0) {
-            line(0, 0, 20 + curl, curl);
+            line(0, 0, ((res) * rat) + curl, curl);
         }
 
 
@@ -100,8 +128,8 @@ function draw() {
         pop();
 
         // incrementing noise values at pace that causes human-like movement
-        baseNoiseX += 0.00003;
-        baseNoiseY += 0.00003;
+        baseNoiseX += 0.00002;
+        baseNoiseY += 0.00002;
     }
 }
 

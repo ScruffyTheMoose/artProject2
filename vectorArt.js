@@ -27,7 +27,7 @@ baseNoiseY = 250;
 function draw() {
 
     // setting background color
-    background(7, 148, 197);
+    background(200);
 
     // setting noise values
     noiseX = noise(baseNoiseX) * windowWidth;
@@ -48,8 +48,8 @@ function draw() {
         circle(locs[k].x, locs[k].y, res * (dist(locs[k].x, locs[k].y, noiseX, noiseY)) / maxDist());
     }
 
-    baseNoiseX += 0.03;
-    baseNoiseY += 0.03;
+    baseNoiseX += 0.01;
+    baseNoiseY += 0.01;
 }
 
 /**
