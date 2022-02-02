@@ -47,17 +47,17 @@ function draw() {
     track.push(new p5.Vector(noiseX, noiseY));
 
     // truncate excess point from track array
-    if (track.length > 500) {
+    if (track.length > 100) {
         track.shift();
     }
 
     // dropping dots at each point visited by the object
     beginShape();
     noFill();
+    stroke(0, 0, 50);
     for (let p = 0; p < track.length; p++) {
         // color fades as points gets further from object
         // NEEDS WORK
-        stroke(255 * (p + 1 / track.length), 0, 0);
         vertex(track[p].x, track[p].y);
     }
     endShape();
@@ -101,11 +101,11 @@ function draw() {
         // color of the line is dependent on distance from circle
         // given as a ratio of max distance to current distance
         let rat = 0.1 + (dist(locs[k].x, locs[k].y, noiseX, noiseY)) / maxDist();
-        let from = color(20, 0, 220);
+        let from = color(0);
         let to = color(200);
         let magnitude = lerpColor(from, to, rat);
         stroke(magnitude);
-        strokeWeight(3);
+        strokeWeight(1);
 
         /* creates a line object at the origin pointing directly right
          * translate and rotate are applied to this line
@@ -118,9 +118,9 @@ function draw() {
          * towards the mouse.
          */
         if (curl >= 0) {
-            line(0, 0, ((res) * rat) - curl, curl);
+            line(0, 0, (res * rat), curl);
         } else if (curl < 0) {
-            line(0, 0, ((res) * rat) + curl, curl);
+            line(0, 0, (res * rat), curl);
         }
 
 
@@ -128,8 +128,8 @@ function draw() {
         pop();
 
         // incrementing noise values at pace that causes human-like movement
-        baseNoiseX += 0.00002;
-        baseNoiseY += 0.00002;
+        baseNoiseX += 0.000015;
+        baseNoiseY += 0.000015;
     }
 }
 
