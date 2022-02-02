@@ -46,8 +46,9 @@ function draw() {
     // add current (x, y) to track array
     track.push(new p5.Vector(noiseX, noiseY));
 
+    // set max length of trail here
     // truncate excess point from track array
-    if (track.length > 100) {
+    if (track.length > 250) {
         track.shift();
     }
 
