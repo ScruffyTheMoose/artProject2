@@ -28,7 +28,7 @@ function setup() {
     // x and y are randomly deviated from the grid [0, 10] pixels
     for (let i = 0; i <= yCount; i++) {
         for (let j = 0; j <= xCount; j++) {
-            locs.push(new p5.Vector(res * j + Math.random() * 10, res * i + Math.random() * 10));
+            locs.push(new p5.Vector(res * j + Math.random() * 50, res * i + Math.random() * 50));
         }
     }
 
@@ -61,6 +61,10 @@ function draw() {
     curl = curlSlider.value();
     fadeRing = ringSlider.value();
 
+    // color values based on random movement across xy-plane
+    let xColor = noise(baseNoiseX) * 255;
+    let yColor = noise(baseNoiseY) * 255;
+
     // building random point from noise for vectors to track
     noiseX = noise(baseNoiseX) * windowWidth;
     noiseY = noise(baseNoiseY) * windowHeight;
@@ -89,7 +93,7 @@ function draw() {
     endShape();
 
     // building object to track
-    fill(100);
+    fill(yColor, 0, xColor);
     noStroke();
     circle(noiseX, noiseY, 20);
 
@@ -127,8 +131,6 @@ function draw() {
         // color of the line is dependent on distance from circle
         // given as a ratio of max distance to current distance
         let rat = 0.1 + (dist(locs[k].x, locs[k].y, noiseX, noiseY)) / (maxDist() * fadeRing);
-        let xColor = noise(baseNoiseX) * 255;
-        let yColor = noise(baseNoiseY) * 255;
         let from = color(xColor, 0, yColor);
         let to = color(200);
         let magnitude = lerpColor(from, to, rat);
