@@ -9,6 +9,9 @@ function setup() {
     // drawing canvas to dimensions that match the size of the window
     createCanvas(windowWidth, windowHeight);
 
+    // setting text size for slider labels
+    textSize(13);
+
     // resolution of vector field, one vector for every 50 pixels
     res = 50;
     xCount = ceil(width / res);
@@ -24,9 +27,13 @@ function setup() {
         }
     }
 
-    slider = createSlider(-15, 15, 0, 1);
-    slider.position(30, 30);
-    slider.style('width', '200px');
+    curlSlider = createSlider(-15, 15, 0, 1);
+    curlSlider.position(30, 30);
+    curlSlider.style('width', '200px');
+
+    ringSlider = createSlider(0, 1, 0.5, 0.01);
+    ringSlider.position(30, 70);
+    ringSlider.style('width', '200px');
 }
 
 baseNoiseX = 0;
@@ -34,21 +41,22 @@ baseNoiseY = 250;
 
 function draw() {
 
-    curl = slider.value();
+    curl = curlSlider.value();
+    fadeRing = ringSlider.value();
 
     // building random point from noise for vectors to track
     noiseX = noise(baseNoiseX) * windowWidth;
     noiseY = noise(baseNoiseY) * windowHeight;
 
     // setting background color to turquiose ish
-    background(150);
+    background(200);
 
     // add current (x, y) to track array
     track.push(new p5.Vector(noiseX, noiseY));
 
     // set max length of trail here
     // truncate excess point from track array
-    if (track.length > 250) {
+    if (track.length > 200) {
         track.shift();
     }
 
@@ -101,12 +109,12 @@ function draw() {
 
         // color of the line is dependent on distance from circle
         // given as a ratio of max distance to current distance
-        let rat = 0.1 + (dist(locs[k].x, locs[k].y, noiseX, noiseY)) / maxDist();
-        let from = color(50, 0, 255);
-        let to = color(255, 0, 0);
+        let rat = 0.1 + (dist(locs[k].x, locs[k].y, noiseX, noiseY)) / (maxDist() * fadeRing);
+        let from = color(25, 0, 235);
+        let to = color(200);
         let magnitude = lerpColor(from, to, rat);
         stroke(magnitude);
-        strokeWeight(1);
+        strokeWeight(6 - (6 * (rat)));
 
         /* creates a line object at the origin pointing directly right
          * translate and rotate are applied to this line
@@ -132,6 +140,10 @@ function draw() {
         baseNoiseX += 0.00001;
         baseNoiseY += 0.00001;
     }
+
+    fill(0);
+    text('Curl', curlSlider.x + 80, 20);
+    text('Fade', ringSlider.x + 80, 60);
 }
 
 /**
