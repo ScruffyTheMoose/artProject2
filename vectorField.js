@@ -4,6 +4,11 @@ locs = [];
 // array for storing vectors to the trail of random trajectory
 track = [];
 
+/**
+ * Setting up the P5 sketch.
+ * Canvas dimensions are set, test size is set, and a matrix of vectors is set up for drawing the vector field with random deviance from the x,y grid.
+ * Sliders for adjusting curl and the ring-fade are also instantiated.
+ */
 function setup() {
 
     // drawing canvas to dimensions that match the size of the window
@@ -36,6 +41,7 @@ function setup() {
     ringSlider.style('width', '200px');
 }
 
+// vars for tracking the base integer value of the noise
 baseNoiseX = 0;
 baseNoiseY = 250;
 
@@ -110,7 +116,9 @@ function draw() {
         // color of the line is dependent on distance from circle
         // given as a ratio of max distance to current distance
         let rat = 0.1 + (dist(locs[k].x, locs[k].y, noiseX, noiseY)) / (maxDist() * fadeRing);
-        let from = color(25, 0, 235);
+        let xColor = noise(baseNoiseX) * 255;
+        let yColor = noise(baseNoiseY) * 255;
+        let from = color(xColor, 0, yColor);
         let to = color(200);
         let magnitude = lerpColor(from, to, rat);
         stroke(magnitude);
