@@ -36,12 +36,12 @@ function draw() {
 
     curl = slider.value();
 
-    // setting background color to turquiose ish
-    background(200);
-
     // building random point from noise for vectors to track
     noiseX = noise(baseNoiseX) * windowWidth;
     noiseY = noise(baseNoiseY) * windowHeight;
+
+    // setting background color to turquiose ish
+    background(150);
 
     // add current (x, y) to track array
     track.push(new p5.Vector(noiseX, noiseY));
@@ -52,7 +52,7 @@ function draw() {
         track.shift();
     }
 
-    // dropping dots at each point visited by the object
+    // drawing trail using vertices at each point visited by the object
     beginShape();
     noFill();
     stroke(0, 0, 50);
@@ -102,8 +102,8 @@ function draw() {
         // color of the line is dependent on distance from circle
         // given as a ratio of max distance to current distance
         let rat = 0.1 + (dist(locs[k].x, locs[k].y, noiseX, noiseY)) / maxDist();
-        let from = color(0);
-        let to = color(200);
+        let from = color(50, 0, 255);
+        let to = color(255, 0, 0);
         let magnitude = lerpColor(from, to, rat);
         stroke(magnitude);
         strokeWeight(1);
@@ -129,8 +129,8 @@ function draw() {
         pop();
 
         // incrementing noise values at pace that causes human-like movement
-        baseNoiseX += 0.000015;
-        baseNoiseY += 0.000015;
+        baseNoiseX += 0.00001;
+        baseNoiseY += 0.00001;
     }
 }
 
