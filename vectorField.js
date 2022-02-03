@@ -45,6 +45,17 @@ function setup() {
 baseNoiseX = 0;
 baseNoiseY = 250;
 
+/**
+ * Rendering components to the canvas.
+ * Variables for curl and ring-fade are initiated.
+ * Noise for movement along the xy-plane is developed.
+ * 
+ * A matrix of position vectors for the track of the moving object is built and drawn.
+ * A circle is drawn to be tracked around the canvas.
+ * 
+ * Vectors are drawn across the grid with color, width, and magnitude varying based on distance from the tracked object.
+ * Vector curl and draw-distance is adjusted live with the sliders.
+ */
 function draw() {
 
     curl = curlSlider.value();
@@ -155,7 +166,7 @@ function draw() {
 }
 
 /**
- * returns the max diagonal distance of the frame
+ * Function that returns the max diagonal distance of the frame
  */
 function maxDist() {
     widthSq = width * width;
