@@ -31,6 +31,12 @@ function setup() {
 circleX = 400;
 circleY = 400;
 
+speedX = 0;
+speedY = 0;
+
+lastSpeedX = 0;
+lastSpeedY = 0;
+
 /**
  * Rendering components to the canvas.
  * Variables for curl and ring-fade are initiated.
@@ -44,22 +50,40 @@ circleY = 400;
  */
 function draw() {
 
-    // Determining x, y movement speed of object based on relative distance from mouse
-    speedX = 15 * abs(circleX - mouseX) / maxDist();
-    speedY = 15 * abs(circleY - mouseY) / maxDist();
+    if (mouseIsPressed) {
 
-    // Changing x-axis direction and speed based on mouse distance
-    if (circleX - mouseX > 20) {
-        circleX -= speedX;
-    } else if (circleX - mouseX < 20) {
-        circleX += speedX;
-    }
+        // Determining x, y movement speed of object based on relative distance from mouse
+        speedX = 25 * abs(circleX - mouseX) / maxDist();
+        speedY = 25 * abs(circleY - mouseY) / maxDist();
 
-    // Change y-axis direction and speed based on mouse distance
-    if (circleY - mouseY > 20) {
-        circleY -= speedY;
-    } else if (circleY - mouseY < 20) {
-        circleY += speedY;
+        // Changing x-axis direction and speed based on mouse distance
+        if (circleX - mouseX > 20) {
+            circleX -= speedX;
+        } else if (circleX - mouseX < 20) {
+            circleX += speedX;
+        }
+
+        // Change y-axis direction and speed based on mouse distance
+        if (circleY - mouseY > 20) {
+            circleY -= speedY;
+        } else if (circleY - mouseY < 20) {
+            circleY += speedY;
+        }
+
+    } else {
+
+        if (circleX < windowWidth) {
+            circleX += speedX;
+        } else {
+            circleX -= speedX
+        }
+
+        if (circleY < windowHeight) {
+            circleY += speedY;
+        } else {
+            circleY -= speedY
+        }
+
     }
 
     // setting background color to turquiose ish
@@ -90,7 +114,6 @@ function draw() {
          * location of the mouse.
          */
         let h = new p5.Vector(-locs[k].x + circleX, -locs[k].y + circleY);
-
 
         // creates an instance specific to the new vector h
         push();
@@ -126,13 +149,16 @@ function draw() {
         pop();
 
     }
+
 }
 
 /**
  * Function that returns the max diagonal distance of the frame
  */
 function maxDist() {
+
     widthSq = width * width;
     heightSq = height * height;
     return Math.sqrt(widthSq + heightSq);
+
 }
