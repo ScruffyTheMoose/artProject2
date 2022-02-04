@@ -53,36 +53,25 @@ function draw() {
     if (mouseIsPressed) {
 
         // Determining x, y movement speed of object based on relative distance from mouse
-        speedX = 25 * abs(circleX - mouseX) / maxDist();
-        speedY = 25 * abs(circleY - mouseY) / maxDist();
+        speedX = -25 * (circleX - mouseX) / maxDist();
+        speedY = -25 * (circleY - mouseY) / maxDist();
 
         // Changing x-axis direction and speed based on mouse distance
-        if (circleX - mouseX > 20) {
-            circleX -= speedX;
-        } else if (circleX - mouseX < 20) {
-            circleX += speedX;
-        }
-
-        // Change y-axis direction and speed based on mouse distance
-        if (circleY - mouseY > 20) {
-            circleY -= speedY;
-        } else if (circleY - mouseY < 20) {
-            circleY += speedY;
-        }
+        circleX += speedX;
+        circleY += speedY;
 
     } else {
 
-        if (circleX < windowWidth) {
-            circleX += speedX;
-        } else {
-            circleX -= speedX
+        if (circleX > windowWidth || circleX < 0) {
+            speedX = -speedX;
         }
 
-        if (circleY < windowHeight) {
-            circleY += speedY;
-        } else {
-            circleY -= speedY
+        if (circleY > windowHeight || circleY < 0) {
+            speedY = -speedY;
         }
+
+        circleX += speedX;
+        circleY += speedY;
 
     }
 
@@ -148,6 +137,18 @@ function draw() {
         // exit the instance
         pop();
 
+    }
+
+    if (speedX > 0) {
+        speedX -= 0.004;
+    } else {
+        speedX += 0.004;
+    }
+
+    if (speedY > 0) {
+        speedY -= 0.004;
+    } else {
+        speedY += 0.004;
     }
 
 }
