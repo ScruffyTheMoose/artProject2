@@ -132,6 +132,7 @@ function draw() {
     }
 
     // building object to track
+    // deep blue (0, 105, 148)
     fill(0, 105, 148);
     noStroke();
     circle(circleX, circleY, 20);
