@@ -34,9 +34,6 @@ circleY = 400;
 speedX = 0;
 speedY = 0;
 
-lastSpeedX = 0;
-lastSpeedY = 0;
-
 /**
  * Rendering components to the canvas.
  * Variables for curl and ring-fade are initiated.
@@ -53,8 +50,8 @@ function draw() {
     if (mouseIsPressed) {
 
         // Determining x, y movement speed of object based on relative distance from mouse
-        speedX = -25 * (circleX - mouseX) / maxDist();
-        speedY = -25 * (circleY - mouseY) / maxDist();
+        speedX = -45 * (circleX - mouseX) / maxDist();
+        speedY = -45 * (circleY - mouseY) / maxDist();
 
         // Changing x-axis direction and speed based on mouse distance
         circleX += speedX;
@@ -76,12 +73,7 @@ function draw() {
     }
 
     // setting background color to turquiose ish
-    background(200);
-
-    // building object to track
-    fill(100);
-    noStroke();
-    circle(circleX, circleY, 20);
+    background(50);
 
     // removing fill and setting line stroke
     noFill();
@@ -107,20 +99,20 @@ function draw() {
         // creates an instance specific to the new vector h
         push();
 
+        // color of the line is dependent on distance from circle
+        // given as a ratio of max distance to current distance
+        let rat = 0.1 + (dist(locs[k].x, locs[k].y, circleX, circleY)) / (maxDist());
+        let from = color(240);
+        let to = color(50);
+        let magnitude = lerpColor(from, to, rat);
+        stroke(magnitude);
+        strokeWeight(6 - (6 * (rat)));
+
         // translate the next object to the head of the pos vector in locs
         translate(locs[k].x, locs[k].y);
 
         // rotates the next object in this instance to the heading of vector h
         rotate(h.heading());
-
-        // color of the line is dependent on distance from circle
-        // given as a ratio of max distance to current distance
-        let rat = 0.1 + (dist(locs[k].x, locs[k].y, circleX, circleY)) / (maxDist());
-        let from = color(200, 0, 230);
-        let to = color(200);
-        let magnitude = lerpColor(from, to, rat);
-        stroke(magnitude);
-        strokeWeight(6 - (6 * (rat)));
 
         /* creates a line object at the origin pointing directly right
          * translate and rotate are applied to this line
@@ -132,23 +124,33 @@ function draw() {
          * function will just add n-radians. Keeping y2 as 0 makes the vector point directly
          * towards the mouse.
          */
-        line(0, 0, 15, 0);
+        line(0, 0, 15, 5 * (1 - rat));
 
         // exit the instance
         pop();
 
     }
 
+    // building object to track
+    fill(0, 105, 148);
+    noStroke();
+    circle(circleX, circleY, 20);
+
+    // gradually slowing down the object as it drifts
+    // currently tends to x-axis
+    slowX = 0.004;
+    slowY = (windowHeight / windowWidth) * slowX;
+
     if (speedX > 0) {
-        speedX -= 0.004;
+        speedX -= slowX;
     } else {
-        speedX += 0.004;
+        speedX += slowX;
     }
 
     if (speedY > 0) {
-        speedY -= 0.004;
+        speedY -= slowY;
     } else {
-        speedY += 0.004;
+        speedY += slowY;
     }
 
 }
