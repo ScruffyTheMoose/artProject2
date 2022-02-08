@@ -21,10 +21,12 @@ function setup() {
     // inner loop builds new vector every <res> pixels across x-axis
     // x and y are randomly deviated from the grid [0, 50] pixels
     for (let i = 0; i <= yCount; i++) {
+
         for (let j = 0; j <= xCount; j++) {
             locs.push(new p5.Vector(res * j + Math.random() * 50, res * i + Math.random() * 50));
-        }
-    }
+        }// end inner loop
+
+    } // end loop
 
     // popup for when the page is loaded
     window.alert("\
@@ -35,14 +37,15 @@ function setup() {
 } // end setup
 
 
-// Initial (x, y) pos of circle
+// initial (x, y) pos of circle
 circleX = 400;
 circleY = 400;
 
+// speed values for circle
 speedX = 0;
 speedY = 0;
 
-// control key val
+// controllable values
 control = 1;
 speed = 50;
 resist = 0.005;
@@ -51,8 +54,6 @@ fade = 0.5;
 
 /**
  * Rendering components to the canvas.
- * Variables for curl and ring-fade are initiated.
- * Noise for movement along the xy-plane is developed.
  * 
  * A matrix of position vectors for the track of the moving object is built and drawn.
  * A circle is drawn to be tracked around the canvas.
@@ -72,7 +73,7 @@ function draw() {
         circleX += speedX;
         circleY += speedY;
 
-        // bouncing object off borders
+        // bouncing object off window borders
     } else {
 
         if (circleX > windowWidth || circleX < 0) {
@@ -86,7 +87,7 @@ function draw() {
         circleX += speedX;
         circleY += speedY;
 
-    }
+    } // end if
 
     // gradually slowing down the object as it drifts
     // slightly tends to x-axis
@@ -97,13 +98,13 @@ function draw() {
         speedX -= slowX;
     } else {
         speedX += slowX;
-    }
+    } // end if
 
     if (speedY > 0) {
         speedY -= slowY;
     } else {
         speedY += slowY;
-    }
+    } // end if
 
     // setting background color to turquiose ish
     background(50);
@@ -133,7 +134,7 @@ function draw() {
         push();
 
         // color of the line is dependent on distance from circle
-        // given as a ratio of max distance to current distance
+        // given as a ratio of current distance to max distance (scaled by fade)
         let rat = 0.1 + (dist(locs[k].x, locs[k].y, circleX, circleY)) / (maxDist() * fade);
         let from = color(240);
         let to = color(50);
@@ -147,7 +148,7 @@ function draw() {
         // rotates the next object in this instance to the heading of vector h
         rotate(h.heading());
 
-        /* creates a line object at the origin pointing directly right
+        /* creates a line object at the origin pointing right/up
          * translate and rotate are applied to this line
          * translate moves the base of the line to vector from locs
          * rotate turns the vector based on vector h heading
@@ -157,12 +158,12 @@ function draw() {
          * function will just add n-radians. Keeping y2 as 0 makes the vector point directly
          * towards the mouse.
          */
-        line(0, 0, 15, 5 * (1 - rat));
+        line(0, 0, 15, 10 * fade);
 
         // exit the instance
         pop();
 
-    }
+    } // end loop
 
     // rendering object to track
     fill(0, 105, 148);
@@ -199,7 +200,7 @@ function draw() {
             textStyle(NORMAL);
             text("Fade = " + fade.toFixed(2), displayX + 15, displayY + 35)
             break;
-    }
+    } // end switch
 
 } // end draw
 
@@ -261,7 +262,7 @@ function keyPressed() {
                     console.log(fade);
                 }
                 break;
-        }
+        } // end switch
 
     } else if (keyCode === 83) {
 
@@ -288,8 +289,8 @@ function keyPressed() {
                     console.log(fade);
                 }
                 break;
-        }
+        } // end switch
 
-    }
+    } // end if
 
 } // end keyPressed
