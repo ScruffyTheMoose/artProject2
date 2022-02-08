@@ -9,7 +9,7 @@
 ### The module is interactive! 
 Click once anywhere on the canvas to attract the object towards your mouse. Click-and-Hold to draw the object towards your mouse. The speed increases the further your mouse is from the object. The object will maintain its speed and trajectory, coasting across and around the canvas.
 
-Using WASD, you can cycle through the options in the bottom left. 
+Using WASD, you can cycle through the options in the bottom right. 
 You can adjust: 
 - The speed that the object will travel through the space
 - The resistance that the object experiences as it travels
