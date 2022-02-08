@@ -28,10 +28,10 @@ function setup() {
     }
 
     // popup for when the page is loaded
-    window.alert('\
+    window.alert("\
         Click anywhere in the window to attract the object. Click-and-Hold to guide the object around. Speed depends on distance between the object and your mouse. When you release, the ball will maintain its trajectory and gradually come to a stop\n\
         \n\
-        Use WASD to select and change different values for the object.')
+        Information is displayed in the low-right. Use 'A' and 'D' to cycle options and 'W' and 'S' to change values.")
 
 } // end setup
 
@@ -172,27 +172,33 @@ function draw() {
 
     // rendering display box
     fill(200);
-    displayX = width - 300;
+    displayX = width - 250;
     displayY = height - 100;
-    rect(displayX, displayY, 300, 100);
+    rect(displayX, displayY, 250, 100);
 
     // rendering display information
     fill(20);
     textSize(15);
     switch (control) {
         case 0:
-            text("Controlling Speed", displayX, displayY + 15);
-            text("Speed = " + speed, displayX, displayY + 35)
+            textStyle(BOLD);
+            text("Controlling Speed", displayX + 15, displayY + 15);
+            textStyle(NORMAL);
+            text("Speed = " + speed, displayX + 15, displayY + 35)
             break;
 
         case 1:
-            text("Controlling Resistance", displayX, displayY + 15);
-            text("Resistance = " + resist.toFixed(2), displayX, displayY + 35)
+            textStyle(BOLD);
+            text("Controlling Resistance", displayX + 15, displayY + 15);
+            textStyle(NORMAL);
+            text("Resistance = " + resist.toFixed(2), displayX + 15, displayY + 35)
             break;
 
         case 2:
-            text("Controlling Fade", displayX, displayY + 15);
-            text("Fade = " + fade.toFixed(2), displayX, displayY + 35)
+            textStyle(BOLD);
+            text("Controlling Fade", displayX + 15, displayY + 15);
+            textStyle(NORMAL);
+            text("Fade = " + fade.toFixed(2), displayX + 15, displayY + 35)
             break;
     }
 
@@ -278,8 +284,10 @@ function keyPressed() {
                 break;
 
             case 2:
-                fade -= 0.1;
-                console.log(fade);
+                if (fade > 0.1) {
+                    fade -= 0.1;
+                    console.log(fade);
+                }
                 break;
         }
 
