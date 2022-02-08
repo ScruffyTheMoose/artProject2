@@ -23,7 +23,7 @@ locs = [];
 
 /**
  * Setting up the P5 sketch.
- * Canvas dimensions are set, test size is set, and a matrix of vectors is set up for drawing the vector field with random deviance from the x,y grid.
+ * Canvas dimensions are set, test size is set, and a matrix of vectors is set up for drawing the vector field
  */
 function setup() {
 
