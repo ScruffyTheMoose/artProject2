@@ -4,15 +4,14 @@ locs = [];
 
 /**
  * Setting up the P5 sketch.
- * Canvas dimensions are set, test size is set, and a matrix of vectors is set up for drawing the vector field with random deviance from the x,y grid.
- * Sliders for adjusting curl and the ring-fade are also instantiated.
+ * Canvas dimensions are set and a matrix of vectors is set up for drawing the vector field with random deviance across the xy-plane.
  */
 function setup() {
 
     // drawing canvas to dimensions that match the size of the window
     createCanvas(windowWidth, windowHeight);
 
-    // resolution of vector field, one vector for every 50 pixels
+    // resolution of vector field, one vector for every 50 sq. pixels
     res = 50;
     xCount = ceil(width / res);
     yCount = ceil(height / res);
@@ -20,7 +19,7 @@ function setup() {
     // creating new vector objects and appending to locs array by row
     // outer loop iterates through y-axis (rows)
     // inner loop builds new vector every <res> pixels across x-axis
-    // x and y are randomly deviated from the grid [0, 10] pixels
+    // x and y are randomly deviated from the grid [0, 50] pixels
     for (let i = 0; i <= yCount; i++) {
         for (let j = 0; j <= xCount; j++) {
             locs.push(new p5.Vector(res * j + Math.random() * 50, res * i + Math.random() * 50));
