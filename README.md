@@ -16,6 +16,7 @@ You can adjust:
 - The fade of the vectors around the object
 
 ### How does it work?
+This code will allow you to set up a simple vector field. The comments go into detail as to how each component impacts the render.
 ```
 // array for storing vectors
 locs = [];
@@ -46,7 +47,7 @@ function setup() {
 
 /**
  * Rendering components to the canvas.
- * A matrix of position vectors for the track of the moving object is built and drawn.
+ * A matrix of position vectors for tracking the mouse is built and drawn.
  */
 function draw() {
 
