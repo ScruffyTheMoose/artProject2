@@ -30,7 +30,7 @@ function setup() {
 
     // popup for when the page is loaded
     window.alert("\
-        Click anywhere in the window to attract the object. Click-and-Hold to guide the object around. Speed depends on distance between the object and your mouse. When you release, the ball will maintain its trajectory and gradually come to a stop\n\
+        Click anywhere in the window to attract the object. Click-and-Hold to guide the object around. Speed depends on distance between the object and your mouse. When you release, the object will maintain its trajectory and gradually come to a stop\n\
         \n\
         Information is displayed in the low-right. Use 'A' and 'D' to cycle options and 'W' and 'S' to change values.")
 
