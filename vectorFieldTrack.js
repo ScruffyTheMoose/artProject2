@@ -172,12 +172,15 @@ function draw() {
 
     // rendering display box
     fill(200);
+    stroke(0);
+    strokeWeight(2);
     displayX = width - 250;
     displayY = height - 100;
     rect(displayX, displayY, 250, 100);
 
     // rendering display information
     fill(20);
+    noStroke();
     textSize(15);
     switch (control) {
         case 0:
