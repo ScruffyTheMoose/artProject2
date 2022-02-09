@@ -23,7 +23,7 @@ locs = [];
 
 /**
  * Setting up the P5 sketch.
- * Canvas dimensions are set, test size is set, and a matrix of vectors is set up for drawing the vector field
+ * Canvas dimensions are set, test size is set, and a matrix of vectors is set up for drawing the vector field with random deviance from the x,y grid.
  */
 function setup() {
 
@@ -47,7 +47,7 @@ function setup() {
 
 /**
  * Rendering components to the canvas.
- * A matrix of position vectors for tracking the mouse is built and drawn.
+ * A matrix of position vectors for the track of the moving object is built and drawn.
  */
 function draw() {
 
@@ -65,16 +65,16 @@ function draw() {
         /**
          * <P> = <x, y>         position vector from locs
          * <M> = <a, b>         position vector of mouse
-         * To get new vector pointing towards mouse from <P>, 
+         * To get new vector pointing from <P> to <M>, 
          * we build a new vector as:
-         * <H> = <a - x, b - y>
+         * <PM> = <a - x, b - y>
+         * The point-to-point operation is reversed due to the location of the origin.
          * 
          * This is necessary because the origin is in the top left of the screen
          * so we must create a new position vector that points towards to true
          * location of the mouse.
          */
         let h = new p5.Vector(mouseX - locs[k].x, mouseY - locs[k].y);
-
 
         // creates an instance specific to the new vector h
         push();
@@ -95,7 +95,7 @@ function draw() {
          * function will just add n-radians. Keeping y2 as 0 makes the vector point directly
          * towards the mouse.
          */
-         line(0, 0, 15, 0);
+        line(0, 0, 15, 0);
 
         // exit the instance
         pop();
