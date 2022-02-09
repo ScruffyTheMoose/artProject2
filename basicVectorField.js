@@ -48,11 +48,8 @@ function draw() {
          * To get new vector pointing from <P> to <M>, 
          * we build a new vector as:
          * <PM> = <a - x, b - y>
-         * The point-to-point operation is reversed due to the location of the origin.
          * 
-         * This is necessary because the origin is in the top left of the screen
-         * so we must create a new position vector that points towards to true
-         * location of the mouse.
+         * This gives us a position vector towards the location of the mouse.
          */
         let h = new p5.Vector(mouseX - locs[k].x, mouseY - locs[k].y);
 
