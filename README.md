@@ -1,5 +1,5 @@
-![p5js](https://img.shields.io/badge/p5.js-ED225D?style=for-the-badge&logo=p5.js&logoColor=FFFFFF)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![p5js](https://img.shields.io/badge/p5.js-ED225D?style=for-the-badge&logo=p5.js&logoColor=FFFFFF)
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 
 `Vector Art` is a repository containing reactive art built around vector fields and attractor points.
@@ -9,7 +9,7 @@
 ### The module is interactive! 
 Click once anywhere on the canvas to attract the object towards your mouse. Click-and-Hold to draw the object towards your mouse. The speed increases the further your mouse is from the object. The object will maintain its speed and trajectory, coasting across and around the canvas.
 
-Using WASD, you can cycle through the options in the bottom left. 
+Using WASD, you can cycle through the options in the bottom right. 
 You can adjust: 
 - The speed that the object will travel through the space
 - The resistance that the object experiences as it travels
