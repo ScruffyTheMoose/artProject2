@@ -2,7 +2,7 @@
 ![p5js](https://img.shields.io/badge/p5.js-ED225D?style=for-the-badge&logo=p5.js&logoColor=FFFFFF)
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 
-`Vector Art` is a repository containing reactive art built around vector fields and attractor points.
+`Vector Art` is a repository containing reactive art built around vector fields and attractor points. The object was the represent movement through space/fluid in a way that is interactive and fun to explore.
 
 [Click here to try it live!](https://scruffythemoose.github.io/artProject2/)
 
