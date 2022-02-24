@@ -4,7 +4,7 @@
 
 `Vector Art` is a repository containing reactive art built around vector fields and attractor points. The objective was to represent movement through space/fluid in a way that is interactive, fun to explore, and (almost) infinitely variable.
 
-## [Click here to try it live!](https://scruffythemoose.github.io/vectorFieldArt/)
+## [Click here to try it live!](https://scruffythemoose.github.io/artProject2/)
 
 ### The module is interactive! 
 Click once anywhere on the canvas to attract the object towards your mouse. Click-and-Hold to draw the object towards your mouse. The speed increases the further your mouse is from the object. The object will maintain its speed and trajectory, coasting across and around the canvas.
