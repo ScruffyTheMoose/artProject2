@@ -18,6 +18,8 @@ You can adjust:
 ### How does it work?
 This code will allow you to set up a simple vector field. The comments go into detail as to how each component impacts the render. To easily replicate the basic vector field, you can just download of a copy of basicVectorField.js file. If you are interested in seeing/using the code for the final product, check out the vectorFieldTrack.js file.
 ```
+# foundational code from https://github.com/winkerVSbecks/material-vector-field
+
 // array for storing vectors
 locs = [];
 
